@@ -18,8 +18,6 @@ public final class BannerActivity extends Activity {
 
     private static final String TAG = "AdmobCE.BannerActivity";
 
-    private static final String ADMOB_MEDIATION_ID = "7951d9d964134273"; //"enter-your-admob-mediation-id-here";
-
     private ViewGroup adLayoutContainer;
     private AdView admobAdView;
 
@@ -35,7 +33,7 @@ public final class BannerActivity extends Activity {
         adLayoutContainer = (ViewGroup) findViewById(R.id.adBanner);
 
         Log.v(TAG, "(ads) Create Admob AdView - start");
-        admobAdView = new AdView(this, AdSize.BANNER, ADMOB_MEDIATION_ID);
+        admobAdView = new AdView(this, AdSize.BANNER, MyAdmobConfig.ADMOB_MEDIATION_ID); // "enter-your-admob-mediation-id-here";
         Log.v(TAG, "(ads) adding Admob AdListener");
 
         admobAdView.setAdListener(new AdListener() {
