@@ -22,8 +22,6 @@ public final class CustomMillennialAd implements CustomEventBanner {
 
     private static final String TAG = "AdmobCE.CustomMillennialAd";
 
-    private MMAdView adView;
-
     @Override
     public void requestBannerAd(final CustomEventBannerListener mediationListener,
                                 Activity activity,
@@ -38,13 +36,17 @@ public final class CustomMillennialAd implements CustomEventBanner {
 
         // Barf now if AndroidVersion > 16
         if (apiLevel > 16) {
+            // TODO Should only bark if targetSDK > 16 too.
+            // Even better if I can also test the version of the Millennial SDK and if 4.6.0 (or below) to barf.
             Log.d(TAG, "#requestBannerAd JellyBean or greater device - bailing now");
             mediationListener.onFailedToReceiveAd();
             return;
         }
 
-        this.adView = new MMAdView(activity, millennialAppId, MMAdView.BANNER_AD_RECTANGLE, MMAdView.REFRESH_INTERVAL_OFF, null, false);
-        this.adView.setListener(new MMAdView.MMAdListener() {
+        // TODO Apply appropriate sizing to the ad.
+
+        final MMAdView adView = new MMAdView(activity, millennialAppId, MMAdView.BANNER_AD_RECTANGLE, MMAdView.REFRESH_INTERVAL_OFF, null, false);
+        adView.setListener(new MMAdView.MMAdListener() {
             @Override
             public void MMAdCachingCompleted(MMAdView mmAdView, boolean b) {
                 Log.d(TAG, "#cachingCompleted - nothing to do");
@@ -81,7 +83,7 @@ public final class CustomMillennialAd implements CustomEventBanner {
         });
 
         Log.d(TAG, "#requestBannerAd before callForAd");
-        this.adView.callForAd();
+        adView.callForAd();
         Log.d(TAG, "#requestBannerAd after callForAd");
     }
 
@@ -90,6 +92,7 @@ public final class CustomMillennialAd implements CustomEventBanner {
         Log.d(TAG, "#destroy");
     }
 
+    @SuppressWarnings("deprecation")
     private int getAPILevel() {
         try {
             // This field has been added in Android 1.6 (API level 4)
