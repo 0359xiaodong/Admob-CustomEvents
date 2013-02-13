@@ -39,7 +39,7 @@ public final class BannerActivity extends Activity {
         admobAdView.setAdListener(new AdListener() {
             @Override
             public void onReceiveAd(Ad ad) {
-                Log.v(TAG, "Admob onReceiveAd : " + ad);
+                Log.v(TAG, "Admob onReceiveAd : " + ad + " adView#width=" + admobAdView.getWidth() + " adView#height=" + admobAdView.getHeight());
             }
             @Override
             public void onFailedToReceiveAd(Ad ad, AdRequest.ErrorCode errorCode) {

@@ -9,8 +9,9 @@
 
     <!-- Ad banner -->
     <LinearLayout android:id="@+id/adBanner"
-                  android:layout_width="fill_parent"
-                  android:layout_height="50dip"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:minHeight="50dip"
                   android:padding="0dip"
                   android:gravity="center"
     />
