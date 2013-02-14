@@ -13,6 +13,21 @@
         <name>Xandar Pty Ltd</name>
     </organization>
 
+    <distributionManagement>
+        <downloadUrl>http://rasta:8081/nexus/content/repositories/releases</downloadUrl>
+        <repository>
+            <id>xandar.releases</id>
+            <name>Xandar Repository</name>
+            <url>http://rasta:8081/nexus/content/repositories/releases</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>xandar.snapshots</id>
+            <name>Xandar Snapshot Repository</name>
+            <url>http://rasta:8081/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
