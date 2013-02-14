@@ -13,9 +13,11 @@
         <name>Xandar Pty Ltd</name>
     </organization>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <scm>
+        <connection>scm:git:https://github.com/william-ferguson-au/Admob-CustomEvents.git</connection>
+        <developerConnection>scm:git:https://github.com/william-ferguson-au/Admob-CustomEvents.git</developerConnection>
+        <url>https://github.com/william-ferguson-au/Admob-CustomEvents.git</url>
+    </scm>
 
     <modules>
         <module>adapters</module>
