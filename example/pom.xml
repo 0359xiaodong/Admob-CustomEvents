@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>au.com.xandar.admob.customevents</groupId>
+    <artifactId>example</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>apk</packaging>
+
+    <name>Admob Custom Events Example</name>
+    <organization>
+        <name>Xandar Pty Ltd</name>
+    </organization>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <android.sdk.version>17</android.sdk.version>
+        <android.library.dependency.version>4.1.1.4</android.library.dependency.version>
+
+        <filtered.manifest.path>${basedir}/target/filtered-manifest</filtered.manifest.path>
+        <filtered.resource.path>${basedir}/target</filtered.resource.path>
+    </properties>
+
+    <dependencies>
+<!--
+    Include the dep so that proguard can see the library as it ignores bootclasspath.
+
+    Actually inclusion during compilation is managed using android.library.sdk.version and the bootclasspath of the compiler plugin.
+    This is done because otherwise I leave myself open to VerifyErrors at runtime as I may have compiled against classes contained in JDK6 that are not in Android 1.6
+-->
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>${android.library.dependency.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Admob - our mediator (also includes the Admob network classes) -->
+        <dependency>
+            <groupId>com.google.ads</groupId>
+            <artifactId>admob</artifactId>
+            <version>6.3.0-rc0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>au.com.xandar.admob.customevents</groupId>
+            <artifactId>adapters</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.7</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.3.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.6</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.3.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.3.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jarsigner-plugin</artifactId>
+                    <version>1.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.7</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.5</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.1.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.9</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>1.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                    <artifactId>android-maven-plugin</artifactId>
+                    <version>3.5.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>wagon-maven-plugin</artifactId>
+                    <version>1.0-beta-3</version>
+                </plugin>
+	        </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <showWarnings>true</showWarnings>
+                    <compilerArguments>
+                        <bootclasspath>${env.ANDROID_HOME}/platforms/android-${android.sdk.version}/android.jar</bootclasspath>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <configuration>
+                    <undeployBeforeDeploy>false</undeployBeforeDeploy>
+
+                    <sdk>
+                        <platform>${android.sdk.version}</platform>
+                    </sdk>
+                    <sign>
+                        <debug>true</debug>
+                    </sign>
+                    <device>${device-id}</device> <!-- from settings.xml either id of the phone or 'emulator'-->
+                    <dex>
+                        <jvmArguments>
+                            <jvmArgument>-Xms512m</jvmArgument>
+                            <jvmArgument>-Xmx1024m</jvmArgument>
+                        </jvmArguments>
+                    </dex>
+
+                    <proguard>
+                        <skip>true</skip>
+                    </proguard>
+                </configuration>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
