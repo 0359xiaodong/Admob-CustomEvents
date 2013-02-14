@@ -19,8 +19,34 @@
         <url>ssh://git@github.com:william-ferguson-au/Admob-CustomEvents.git</url>
     </scm>
 
+    <distributionManagement>
+        <downloadUrl>http://rasta:8081/nexus/content/repositories/releases</downloadUrl>
+        <repository>
+            <id>xandar.releases</id>
+            <name>Xandar Repository</name>
+            <url>http://rasta:8081/nexus/content/repositories/releases</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>xandar.snapshots</id>
+            <name>Xandar Snapshot Repository</name>
+            <url>http://rasta:8081/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <modules>
         <module>adapters</module>
         <module>example</module>
     </modules>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+	        </plugins>
+        </pluginManagement>
+    </build>
 </project>
