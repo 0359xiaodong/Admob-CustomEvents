@@ -55,15 +55,14 @@ public final class CustomMillennialAd implements CustomEventBanner {
             return;
         }
 
-        // Apply appropriate sizing to the ad.
-        Log.d(TAG, "#requestBannerAd AdSize=" + adSize + " height=" + adSize.getHeight() + " width=" + adSize.getWidth());
-        final String adHeight = Integer.toString(adSize.getHeight());
-        final String adWidth = Integer.toString(adSize.getWidth());
         final Hashtable<String, String> metaMap = new Hashtable<String, String>();
-
         final MMAdView adView = new MMAdView(activity, millennialAppId, MMAdView.BANNER_AD_RECTANGLE, MMAdView.REFRESH_INTERVAL_OFF, metaMap, false);
-        adView.setHeight(adHeight);
-        adView.setWidth(adWidth);
+
+        // TODO Apply appropriate sizing to the ad.
+        final int heightPixels = adSize.getHeightInPixels(activity);
+        final int widthPixels = adSize.getWidthInPixels(activity);
+        Log.d(TAG, "#requestBannerAd AdSize=" + adSize + " width=" + adSize.getWidth() + "dp height=" + adSize.getHeight() + "dp");
+        Log.d(TAG, "#requestBannerAd width=" + widthPixels + "px height=" + heightPixels + "px");
 
         adView.setListener(new MMAdView.MMAdListener() {
             @Override
@@ -74,7 +73,6 @@ public final class CustomMillennialAd implements CustomEventBanner {
             @Override
             public void MMAdReturned(MMAdView mmAdView) {
                 Log.d(TAG, "#returned height=" + mmAdView.getHeight() + " width=" + mmAdView.getWidth() + " layoutParams#width=" + mmAdView.getLayoutParams().width + " layoutParams#height=" + mmAdView.getLayoutParams().height);
-
                 mediationListener.onReceivedAd(mmAdView);
             }
 
