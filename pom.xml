@@ -5,7 +5,7 @@
 
     <groupId>au.com.xandar.admob.customevents</groupId>
     <artifactId>custom-events</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Admob Custom Events</name>
@@ -14,9 +14,9 @@
     </organization>
 
     <scm>
-        <connection>scm:git:https://github.com/william-ferguson-au/Admob-CustomEvents.git</connection>
-        <developerConnection>scm:git:https://github.com/william-ferguson-au/Admob-CustomEvents.git</developerConnection>
-        <url>https://github.com/william-ferguson-au/Admob-CustomEvents.git</url>
+        <connection>scm:git:git@github.com:william-ferguson-au/Admob-CustomEvents.git</connection>
+        <developerConnection>scm:git:git@github.com:william-ferguson-au/Admob-CustomEvents.git</developerConnection>
+        <url>ssh://git@github.com:william-ferguson-au/Admob-CustomEvents.git</url>
     </scm>
 
     <modules>
