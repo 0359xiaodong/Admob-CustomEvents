@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewGroup;
+import au.com.xandar.admob.common.Consts;
 import au.com.xandar.admob.customevents.R;
 import com.google.ads.*;
 
@@ -16,6 +17,11 @@ import com.google.ads.*;
  */
 public final class BannerActivity extends Activity {
 
+    static {
+        // Switch on debug for component
+        Consts.DEBUG = true;
+    }
+
     private static final String TAG = "AdmobCE.BannerActivity";
 
     private ViewGroup adLayoutContainer;
@@ -26,6 +32,7 @@ public final class BannerActivity extends Activity {
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         Log.v(TAG, "#onCreate - start");
 
         super.onCreate(savedInstanceState);
@@ -33,7 +40,7 @@ public final class BannerActivity extends Activity {
         adLayoutContainer = (ViewGroup) findViewById(R.id.adBanner);
 
         Log.v(TAG, "(ads) Create Admob AdView - start");
-        admobAdView = new AdView(this, AdSize.BANNER, MyAdmobConfig.ADMOB_MEDIATION_ID); // "enter-your-admob-mediation-id-here";
+        admobAdView = new AdView(this, AdSize.BANNER, MyAdmobConfig.ADMOB_MEDIATION_ID); // "enter-your-Admob-mediation-id-here";
         Log.v(TAG, "(ads) adding Admob AdListener");
 
         admobAdView.setAdListener(new AdListener() {
