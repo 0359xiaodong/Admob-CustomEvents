@@ -3,7 +3,9 @@ package au.com.xandar.admob.jumptap;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import au.com.xandar.admob.common.Consts;
 import com.google.ads.AdSize;
 import com.google.ads.mediation.MediationAdRequest;
@@ -62,17 +64,16 @@ public final class JumptapBannerAd implements CustomEventBanner {
         final CustomJtAdView_2_4_1_2_117316 adView;
         try {
             adView = new CustomJtAdView_2_4_1_2_117316(activity, settings);
+            adView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         } catch (JtException e) {
             throw new IllegalStateException("Could not create JumptapAdView", e);
         }
 
         // Apply appropriate sizing to the ad.
-        final int heightPixels = adSize.getHeightInPixels(activity);
-        final int widthPixels = adSize.getWidthInPixels(activity);
         if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd AdSize=" + adSize + " width=" + adSize.getWidth() + "dp height=" + adSize.getHeight() + "dp");
-        if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd width=" + widthPixels + "px height=" + heightPixels + "px");
+        if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd width=" + adSize.getWidthInPixels(activity) + "px height=" + adSize.getHeightInPixels(activity) + "px");
 
-        final LinearLayout.LayoutParams wrappedLayoutParams = new LinearLayout.LayoutParams(adSize.getWidth(), adSize.getHeight()); // use AdSize to determine width and height.
+        final LinearLayout.LayoutParams wrappedLayoutParams = new LinearLayout.LayoutParams(adSize.getWidthInPixels(activity), adSize.getHeightInPixels(activity));
         wrappedLayoutParams.gravity = Gravity.CENTER;
 
         final LinearLayout wrappedAdView = new LinearLayout(activity);

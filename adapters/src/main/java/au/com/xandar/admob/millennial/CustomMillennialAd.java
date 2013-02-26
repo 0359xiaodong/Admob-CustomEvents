@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import au.com.xandar.admob.common.Consts;
 import com.google.ads.AdSize;
 import com.google.ads.mediation.MediationAdRequest;
@@ -60,14 +62,13 @@ public final class CustomMillennialAd implements CustomEventBanner {
 
         final Hashtable<String, String> metaMap = new Hashtable<String, String>();
         final MMAdView adView = new MMAdView(activity, millennialAppId, MMAdView.BANNER_AD_RECTANGLE, MMAdView.REFRESH_INTERVAL_OFF, metaMap, false);
+        adView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        // TODO Apply appropriate sizing to the ad.
-        final int heightPixels = adSize.getHeightInPixels(activity);
-        final int widthPixels = adSize.getWidthInPixels(activity);
+        // Apply appropriate sizing to the ad.
         if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd AdSize=" + adSize + " width=" + adSize.getWidth() + "dp height=" + adSize.getHeight() + "dp");
-        if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd width=" + widthPixels + "px height=" + heightPixels + "px");
+        if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd width=" + adSize.getWidthInPixels(activity) + "px height=" + adSize.getHeightInPixels(activity) + "px");
 
-        final LinearLayout.LayoutParams wrappedLayoutParams = new LinearLayout.LayoutParams(adSize.getWidth(), adSize.getHeight()); // use AdSize to determine width and height.
+        final LinearLayout.LayoutParams wrappedLayoutParams = new LinearLayout.LayoutParams(adSize.getWidthInPixels(activity), adSize.getHeightInPixels(activity));
         wrappedLayoutParams.gravity = Gravity.CENTER;
 
         final LinearLayout wrappedAdView = new LinearLayout(activity);
