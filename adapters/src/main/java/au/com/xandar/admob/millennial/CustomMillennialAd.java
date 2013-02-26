@@ -3,6 +3,9 @@ package au.com.xandar.admob.millennial;
 import android.app.Activity;
 import android.os.Build;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.LinearLayout;
+import au.com.xandar.admob.common.Consts;
 import com.google.ads.AdSize;
 import com.google.ads.mediation.MediationAdRequest;
 import com.google.ads.mediation.customevent.CustomEventBanner;
@@ -33,24 +36,24 @@ public final class CustomMillennialAd implements CustomEventBanner {
                                 Object customEventExtra) {
 
         final boolean deviceIsJellyBeanOrGreater = (Build.VERSION.SDK_INT >= 16);
-        Log.d(TAG, "#requestBannerAd androidVersion=" + Build.VERSION.SDK_INT + " deviceIsJellyBeanOrGreater=" + deviceIsJellyBeanOrGreater);
+        if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd androidVersion=" + Build.VERSION.SDK_INT + " deviceIsJellyBeanOrGreater=" + deviceIsJellyBeanOrGreater);
 
         // Only fails if targetSDK=17 (or greater?) AND device is Version=17 (or 16? ie all JellyBean)
         final boolean targetSDKIs17OrGreater = activity.getApplicationInfo().targetSdkVersion >= 17;
-        Log.d(TAG, "#requestBannerAd targetSDK=" + activity.getApplicationInfo().targetSdkVersion + " targetSDKis17OrGreater=" + targetSDKIs17OrGreater);
+        if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd targetSDK=" + activity.getApplicationInfo().targetSdkVersion + " targetSDKis17OrGreater=" + targetSDKIs17OrGreater);
 
         // THis is a problem with MM-4.6.0 - hopefully it will be fixed in a later version.
         final String mmSdkVersion = MMAdViewSDK.SDKVER.substring(0, 5);
         final int compareToVersion = mmSdkVersion.compareTo("4.6.0");
         final boolean millennialVersionIsFourPointSixPointZero = (compareToVersion <= 0);
-        Log.d(TAG, "#requestBannerAd MillennialSDKVersion=" + MMAdViewSDK.SDKVER + " versionIs4.6.0(OrLower)=" + millennialVersionIsFourPointSixPointZero);
+        if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd MillennialSDKVersion=" + MMAdViewSDK.SDKVER + " versionIs4.6.0(OrLower)=" + millennialVersionIsFourPointSixPointZero);
 
         // Barf now if AndroidVersion is JellyBean (16) or greater,
         // AND targetSDK is JellyBean (16) or greater
         // AND we are using MillennialSDK 4.6.0 or lower.
 
         if (deviceIsJellyBeanOrGreater && targetSDKIs17OrGreater && millennialVersionIsFourPointSixPointZero) {
-            Log.d(TAG, "#requestBannerAd JellyBean or greater device - bailing now");
+            if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd JellyBean or greater device - bailing now");
             mediationListener.onFailedToReceiveAd();
             return;
         }
@@ -61,52 +64,60 @@ public final class CustomMillennialAd implements CustomEventBanner {
         // TODO Apply appropriate sizing to the ad.
         final int heightPixels = adSize.getHeightInPixels(activity);
         final int widthPixels = adSize.getWidthInPixels(activity);
-        Log.d(TAG, "#requestBannerAd AdSize=" + adSize + " width=" + adSize.getWidth() + "dp height=" + adSize.getHeight() + "dp");
-        Log.d(TAG, "#requestBannerAd width=" + widthPixels + "px height=" + heightPixels + "px");
+        if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd AdSize=" + adSize + " width=" + adSize.getWidth() + "dp height=" + adSize.getHeight() + "dp");
+        if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd width=" + widthPixels + "px height=" + heightPixels + "px");
+
+        final LinearLayout.LayoutParams wrappedLayoutParams = new LinearLayout.LayoutParams(adSize.getWidth(), adSize.getHeight()); // use AdSize to determine width and height.
+        wrappedLayoutParams.gravity = Gravity.CENTER;
+
+        final LinearLayout wrappedAdView = new LinearLayout(activity);
+        wrappedAdView.setLayoutParams(wrappedLayoutParams);
+        wrappedAdView.addView(adView);
 
         adView.setListener(new MMAdView.MMAdListener() {
             @Override
             public void MMAdCachingCompleted(MMAdView mmAdView, boolean b) {
-                Log.d(TAG, "#cachingCompleted - nothing to do");
+                if (Consts.DEBUG) Log.d(TAG, "#adCachingCompleted - nothing to do");
             }
 
             @Override
             public void MMAdReturned(MMAdView mmAdView) {
-                Log.d(TAG, "#returned height=" + mmAdView.getHeight() + " width=" + mmAdView.getWidth() + " layoutParams#width=" + mmAdView.getLayoutParams().width + " layoutParams#height=" + mmAdView.getLayoutParams().height);
-                mediationListener.onReceivedAd(mmAdView);
+                // Hand back the wrapped view so we get the correct sizing and gravity
+                if (Consts.DEBUG) Log.d(TAG, "#adReturned height=" + mmAdView.getHeight() + " width=" + mmAdView.getWidth() + " layoutParams#width=" + mmAdView.getLayoutParams().width + " layoutParams#height=" + mmAdView.getLayoutParams().height);
+                mediationListener.onReceivedAd(wrappedAdView);
             }
 
             @Override
             public void MMAdFailed(MMAdView mmAdView) {
-                Log.d(TAG, "#failed");
+                if (Consts.DEBUG) Log.d(TAG, "#adFailed");
                 mediationListener.onFailedToReceiveAd();
             }
 
             @Override
             public void MMAdClickedToOverlay(MMAdView mmAdView) {
-                Log.d(TAG, "#clickedToOverlay");
+                if (Consts.DEBUG) Log.d(TAG, "#adClickedToOverlay");
                 mediationListener.onClick();
                 mediationListener.onPresentScreen();
             }
 
             @Override
             public void MMAdOverlayLaunched(MMAdView mmAdView) {
-                Log.d(TAG, "#overlayLaunched (automatically) - nothing to do");
+                if (Consts.DEBUG) Log.d(TAG, "#adOverlayLaunched (automatically) - nothing to do");
             }
 
             @Override
             public void MMAdRequestIsCaching(MMAdView mmAdView) {
-                Log.d(TAG, "#requestIsCaching - nothing to do");
+                if (Consts.DEBUG) Log.d(TAG, "#adRequestIsCaching - nothing to do");
             }
         });
 
-        Log.d(TAG, "#requestBannerAd before callForAd");
+        if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd before callForAd");
         adView.callForAd();
-        Log.d(TAG, "#requestBannerAd after callForAd");
+        if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd after callForAd");
     }
 
     @Override
     public void destroy() {
-        Log.d(TAG, "#destroy");
+        if (Consts.DEBUG) Log.d(TAG, "#destroy");
     }
 }
