@@ -51,8 +51,8 @@ public final class JumptapBannerAd implements CustomEventBanner {
 
         final JtAdWidgetSettings settings = JtAdWidgetSettingsFactory.createWidgetSettings();
         settings.setPublisherId(jumptapId.publisherId);
-        settings.setSpotId(jumptapId.siteId);
-        settings.setSiteId(jumptapId.spotId);
+        settings.setSiteId(jumptapId.siteId);
+        settings.setSpotId(jumptapId.spotId);
         settings.setRefreshPeriod(0);
 
         //Copied from JumptapAdapter2.4.1.2.117316
