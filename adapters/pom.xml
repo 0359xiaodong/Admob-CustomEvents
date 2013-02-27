@@ -73,6 +73,13 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- Greystripe -->
+        <dependency>
+            <groupId>com.greystripe</groupId>
+            <artifactId>greystripe-android-sdk</artifactId>
+            <version>2.1</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 

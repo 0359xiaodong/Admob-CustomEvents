@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
 >
 
-    <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:gravity="center" android:text="ABOVE AD"/>
+    <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:gravity="center" android:text="@string/aboveAd"/>
 
     <!-- Ad banner -->
     <LinearLayout android:id="@+id/adBanner"
@@ -16,6 +16,20 @@
                   android:gravity="center"
     />
 
-    <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:gravity="center" android:text="BELOW AD"/>
+    <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:gravity="center" android:text="@string/belowAd"/>
 
+    <Button android:id="@+id/loadInterstitial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/loadInterstitial"
+    />
+
+    <Button android:id="@+id/showInterstitial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/showInterstitial"
+            android:enabled="false"
+    />
 </LinearLayout>

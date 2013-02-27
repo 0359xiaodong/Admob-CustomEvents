@@ -7,4 +7,5 @@ public class Consts {
 
     public static boolean DEBUG = false;
 
+    public static boolean THROW_GREYSTRIPE_INTERSTITIAL_CREATION_EXCEPTION = true;
 }

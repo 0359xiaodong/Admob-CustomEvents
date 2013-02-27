@@ -26,7 +26,7 @@ import java.util.Hashtable;
  */
 public class MillennialBannerAd implements CustomEventBanner {
 
-    private static final String TAG = "AdmobCE.CustomMillennialAd";
+    private static final String TAG = "AdmobCE.MillennialBanner";
 
     @Override
     public void requestBannerAd(final CustomEventBannerListener mediationListener,
@@ -55,7 +55,7 @@ public class MillennialBannerAd implements CustomEventBanner {
         // AND we are using MillennialSDK 4.6.0 or lower.
 
         if (deviceIsJellyBeanOrGreater && targetSDKIs17OrGreater && millennialVersionIsFourPointSixPointZero) {
-            if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd JellyBean or greater device - bailing now");
+            if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd JellyBean or greater device - Millennial-4.6.0 doesn't handle that well - bailing now");
             mediationListener.onFailedToReceiveAd();
             return;
         }

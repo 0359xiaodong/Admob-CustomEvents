@@ -3,7 +3,9 @@ package au.com.xandar.admob;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import au.com.xandar.admob.common.Consts;
 import au.com.xandar.admob.customevents.R;
 import com.google.ads.*;
@@ -27,6 +29,10 @@ public final class BannerActivity extends Activity {
     private ViewGroup adLayoutContainer;
     private AdView admobAdView;
 
+    private InterstitialAd interstitialAd;
+    private Button loadInterstitial;
+    private Button showInterstitial;
+
     /**
      * Called when the activity is first created.
      */
@@ -38,35 +44,88 @@ public final class BannerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banner);
         adLayoutContainer = (ViewGroup) findViewById(R.id.adBanner);
+        loadInterstitial = (Button) findViewById(R.id.loadInterstitial);
+        showInterstitial = (Button) findViewById(R.id.showInterstitial);
 
         Log.v(TAG, "(ads) Create Admob AdView - start");
-        admobAdView = new AdView(this, AdSize.BANNER, MyAdmobConfig.ADMOB_MEDIATION_ID); // "enter-your-Admob-mediation-id-here";
+        admobAdView = new AdView(this, AdSize.BANNER, MyAdmobConfig.ADMOB_BANNER_MEDIATION_ID); // "enter-your-Admob-mediation-id-here";
         Log.v(TAG, "(ads) adding Admob AdListener");
 
         admobAdView.setAdListener(new AdListener() {
             @Override
             public void onReceiveAd(Ad ad) {
-                Log.v(TAG, "Admob onReceiveAd : " + ad + " adView#width=" + admobAdView.getWidth() + " adView#height=" + admobAdView.getHeight());
+                Log.v(TAG, "Banner#onReceiveAd : " + ad + " adView#width=" + admobAdView.getWidth() + " adView#height=" + admobAdView.getHeight());
             }
             @Override
             public void onFailedToReceiveAd(Ad ad, AdRequest.ErrorCode errorCode) {
-                Log.v(TAG, "Admob onFailedToReceiveAd errorCode=" + errorCode + " : " + ad);
+                Log.v(TAG, "Banner#onFailedToReceiveAd errorCode=" + errorCode + " : " + ad);
             }
             @Override
             public void onPresentScreen(Ad ad) {
-                Log.v(TAG, "Admob onPresentScreen : " + ad);
+                Log.v(TAG, "Banner#onPresentScreen : " + ad);
             }
             @Override
             public void onDismissScreen(Ad ad) {
-                Log.v(TAG, "Admob onDismissScreen : " + ad);
+                Log.v(TAG, "Banner#onDismissScreen : " + ad);
             }
             @Override
             public void onLeaveApplication(Ad ad) {
-                Log.v(TAG, "Admob onLeaveApplication : " + ad);
+                Log.v(TAG, "Banner#onLeaveApplication : " + ad);
             }
         });
         Log.v(TAG, "(ads) added Admob AdListener");
         adLayoutContainer.addView(admobAdView);
+
+
+        // Interstitial Ads
+        interstitialAd = new InterstitialAd(this, MyAdmobConfig.ADMOB_INTERSTITIAL_MEDIATION_ID);
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onReceiveAd(Ad ad) {
+                Log.v(TAG, "Interstitial#onReceivedAd : " + ad);
+                showInterstitial.setEnabled(true);
+            }
+
+            @Override
+            public void onFailedToReceiveAd(Ad ad, AdRequest.ErrorCode errorCode) {
+                Log.v(TAG, "Interstitial#onFailedToReceiveAd : " + ad);
+                showInterstitial.setEnabled(false);
+            }
+
+            @Override
+            public void onPresentScreen(Ad ad) {
+                Log.v(TAG, "Interstitial#onPresentScreen : " + ad);
+                showInterstitial.setEnabled(false);
+            }
+
+            @Override
+            public void onDismissScreen(Ad ad) {
+                Log.v(TAG, "Interstitial#onDismissScreen : " + ad);
+                showInterstitial.setEnabled(false);
+            }
+
+            @Override
+            public void onLeaveApplication(Ad ad) {
+                Log.v(TAG, "Interstitial#onLeaveApplication : " + ad);
+            }
+        });
+
+        loadInterstitial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                interstitialAd.loadAd(new AdRequest());
+            }
+        });
+
+        showInterstitial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v(TAG, "showInterstitial#onClick isReady : " + interstitialAd.isReady());
+                if (interstitialAd.isReady()) {
+                    interstitialAd.show();
+                }
+            }
+        });
 
         Log.v(TAG, "#onCreate - finish");
     }

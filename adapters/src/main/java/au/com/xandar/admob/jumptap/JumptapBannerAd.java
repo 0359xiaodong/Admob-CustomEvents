@@ -26,7 +26,7 @@ import com.jumptap.adtag.utils.JtException;
  */
 public final class JumptapBannerAd implements CustomEventBanner {
 
-    private static final String TAG = "AdmobCE.JumptapBannerAd";
+    private static final String TAG = "AdmobCE.JumptapBanner";
 
     private static class JumptapId {
         String publisherId;
@@ -45,6 +45,7 @@ public final class JumptapBannerAd implements CustomEventBanner {
 
         if (unparsedJumptapId == null || unparsedJumptapId.trim().equals("")) {
             if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd no JumptapId found - exiting");
+            mediationListener.onFailedToReceiveAd();
             return;
         }
 

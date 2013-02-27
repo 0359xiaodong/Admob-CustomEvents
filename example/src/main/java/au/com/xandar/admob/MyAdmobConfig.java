@@ -6,5 +6,6 @@ package au.com.xandar.admob;
 public class MyAdmobConfig {
 
     // My CustomEvents-Test mediation Id
-    public static final String ADMOB_MEDIATION_ID = "7951d9d964134273";
+    public static final String ADMOB_BANNER_MEDIATION_ID = "7951d9d964134273";
+    public static final String ADMOB_INTERSTITIAL_MEDIATION_ID = "855a178b66a3412e";
 }

@@ -17,6 +17,9 @@
         <activity android:configChanges="keyboardHidden|orientation|keyboard" android:name="com.millennialmedia.android.MMActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity android:configChanges="keyboardHidden|orientation|keyboard" android:name="com.millennialmedia.android.VideoPlayer"/>
 
+        <!-- Greystripe full screen ad -->
+        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenSize" android:name="com.greystripe.sdk.GSFullscreenActivity"/>
+
     </application>
 
     <!--

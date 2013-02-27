@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="aboveAd">ABOVE AD</string>
+    <string name="belowAd">BELOW AD</string>
+
+    <string name="loadInterstitial">Load Interstitial</string>
+    <string name="showInterstitial">Show Interstitial</string>
+</resources>
