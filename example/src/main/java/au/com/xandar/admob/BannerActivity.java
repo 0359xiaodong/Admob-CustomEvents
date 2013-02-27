@@ -47,9 +47,9 @@ public final class BannerActivity extends Activity {
         loadInterstitial = (Button) findViewById(R.id.loadInterstitial);
         showInterstitial = (Button) findViewById(R.id.showInterstitial);
 
-        Log.v(TAG, "(ads) Create Admob AdView - start");
+        Log.v(TAG, "#onCreate create Admob AdView - start");
         admobAdView = new AdView(this, AdSize.BANNER, MyAdmobConfig.ADMOB_BANNER_MEDIATION_ID); // "enter-your-Admob-mediation-id-here";
-        Log.v(TAG, "(ads) adding Admob AdListener");
+        Log.v(TAG, "#onCreate adding Admob AdListener");
 
         admobAdView.setAdListener(new AdListener() {
             @Override
@@ -73,9 +73,12 @@ public final class BannerActivity extends Activity {
                 Log.v(TAG, "Banner#onLeaveApplication : " + ad);
             }
         });
-        Log.v(TAG, "(ads) added Admob AdListener");
+        Log.v(TAG, "#onCreate added Admob AdListener");
         adLayoutContainer.addView(admobAdView);
 
+        Log.v(TAG, "#onCreate loading BannerAd");
+        admobAdView.loadAd(new AdRequest());
+        Log.v(TAG, "#onCreate loaded BannerAd");
 
         // Interstitial Ads
         interstitialAd = new InterstitialAd(this, MyAdmobConfig.ADMOB_INTERSTITIAL_MEDIATION_ID);
@@ -134,31 +137,13 @@ public final class BannerActivity extends Activity {
     protected void onResume() {
         Log.d(TAG, "#onResume - start");
         super.onResume();
-
-        Log.v(TAG, "(ads) Admob start loading - start");
-        final AdRequest adRequest = new AdRequest();
-        admobAdView.loadAd(adRequest);
-        Log.v(TAG, "(ads) Admob start loading - finish");
-
         Log.d(TAG, "#onResume - finish");
     }
 
-    /**
-     * Invoked whenever another Activity comes in front of this Activity.
-     * The Activity can be killed at any point after this.
-     * <p>
-     * This is where we will persist the Game state.
-     * </p>
-     */
     @Override
     protected void onPause() {
         Log.v(TAG, "#onPause - start isFinishing:" + isFinishing() + " changingConfigurations:" + getChangingConfigurations());
         super.onPause();
-
-        Log.v(TAG, "(ads) - stop loading - start");
-        admobAdView.stopLoading();
-        Log.v(TAG, "(ads) - stop loading - finish");
-
         Log.d(TAG, "#onPause - finish");
     }
 
@@ -179,6 +164,9 @@ public final class BannerActivity extends Activity {
         admobAdView.destroy();
         admobAdView = null;
         adLayoutContainer.removeAllViews();
+
+        interstitialAd.setAdListener(null);
+        interstitialAd = null;
 
         Log.v(TAG, "(ads) Stopping and removing all AdViews - finish");
 
