@@ -42,7 +42,10 @@
         1.1     2
         1.0     1
     -->
-    <!-- MinSDK==7 because I want to use Build.VERSION.SDK_INT to make decisions on api usage without resorting to reflection. -->
+    <!--
+        MinSDK==7 because I want to use Build.VERSION.SDK_INT to make decisions on api usage without resorting to reflection.
+        NB targetSDK=16 because 17 causes lots of the ad networks to fail to deliver ads.
+    -->
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="16"/>
 
     <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:smallScreens="true" android:xlargeScreens="true"/>

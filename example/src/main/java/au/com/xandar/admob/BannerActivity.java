@@ -91,7 +91,7 @@ public final class BannerActivity extends Activity {
 
             @Override
             public void onFailedToReceiveAd(Ad ad, AdRequest.ErrorCode errorCode) {
-                Log.v(TAG, "Interstitial#onFailedToReceiveAd : " + ad);
+                Log.v(TAG, "Interstitial#onFailedToReceiveAd errorCode=" + errorCode);
                 showInterstitial.setEnabled(false);
             }
 
