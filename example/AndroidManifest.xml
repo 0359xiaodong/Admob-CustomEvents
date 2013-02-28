@@ -42,7 +42,8 @@
         1.1     2
         1.0     1
     -->
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="16"/>
+    <!-- MinSDK==7 because I want to use Build.VERSION.SDK_INT to make decisions on api usage without resorting to reflection. -->
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="16"/>
 
     <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:smallScreens="true" android:xlargeScreens="true"/>
 

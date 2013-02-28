@@ -2,6 +2,7 @@ package au.com.xandar.admob.jumptap;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.WindowManager;
@@ -45,7 +46,7 @@ final class CustomJtAdView_2_4_1_2_117316 extends JtAdView {
             if (activity.isFinishing()) {
                 if (Consts.DEBUG) Log.d(TAG, "#handleClicks activity#isFinishing - not handling click");
                 return;
-            } else if (activity.isDestroyed()) {
+            } else if (Build.VERSION.SDK_INT >= 17 && activity.isDestroyed()) { // Activity#isDestroyed was only added in SDK#17 so need to check version first
                 if (Consts.DEBUG) Log.d(TAG, "#handleClicks activity#isDestroyed - not handling click");
                 return;
             }

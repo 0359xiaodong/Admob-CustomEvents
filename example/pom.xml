@@ -32,7 +32,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <android.sdk.version>17</android.sdk.version>
-        <android.library.dependency.version>4.1.1.4</android.library.dependency.version>
+        <android.library.dependency.version>4.2</android.library.dependency.version>
 
         <filtered.manifest.path>${basedir}/target/filtered-manifest</filtered.manifest.path>
         <filtered.resource.path>${basedir}/target</filtered.resource.path>
