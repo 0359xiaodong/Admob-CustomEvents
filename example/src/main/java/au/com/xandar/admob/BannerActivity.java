@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import au.com.xandar.admob.common.Consts;
+import au.com.xandar.admob.common.CustomEventConsts;
 import au.com.xandar.admob.customevents.R;
 import com.google.ads.*;
 
@@ -21,7 +21,7 @@ public final class BannerActivity extends Activity {
 
     static {
         // Switch on debug for component
-        Consts.DEBUG = true;
+        CustomEventConsts.DEBUG = true;
     }
 
     private static final String TAG = "AdmobCE.BannerActivity";

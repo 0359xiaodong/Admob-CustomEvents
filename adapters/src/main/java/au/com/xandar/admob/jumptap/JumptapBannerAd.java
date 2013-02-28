@@ -6,7 +6,7 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import au.com.xandar.admob.common.Consts;
+import au.com.xandar.admob.common.CustomEventConsts;
 import com.google.ads.AdSize;
 import com.google.ads.mediation.MediationAdRequest;
 import com.google.ads.mediation.customevent.CustomEventBanner;
@@ -44,7 +44,7 @@ public final class JumptapBannerAd implements CustomEventBanner {
                                 Object customEventExtra) {
 
         if (unparsedJumptapId == null || unparsedJumptapId.trim().equals("")) {
-            if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd no JumptapId found - exiting");
+            if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestBannerAd no JumptapId found - exiting");
             mediationListener.onFailedToReceiveAd();
             return;
         }
@@ -71,8 +71,8 @@ public final class JumptapBannerAd implements CustomEventBanner {
         }
 
         // Apply appropriate sizing to the ad.
-        if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd AdSize=" + adSize + " width=" + adSize.getWidth() + "dp height=" + adSize.getHeight() + "dp");
-        if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd width=" + adSize.getWidthInPixels(activity) + "px height=" + adSize.getHeightInPixels(activity) + "px");
+        if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestBannerAd AdSize=" + adSize + " width=" + adSize.getWidth() + "dp height=" + adSize.getHeight() + "dp");
+        if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestBannerAd width=" + adSize.getWidthInPixels(activity) + "px height=" + adSize.getHeightInPixels(activity) + "px");
 
         final LinearLayout.LayoutParams wrappedLayoutParams = new LinearLayout.LayoutParams(adSize.getWidthInPixels(activity), adSize.getHeightInPixels(activity));
         wrappedLayoutParams.gravity = Gravity.CENTER;
@@ -85,116 +85,116 @@ public final class JumptapBannerAd implements CustomEventBanner {
 
             @Override
             public void onNoAdFound(JtAdView jtAdView, int i) {
-                if (Consts.DEBUG) Log.d(TAG, "#onNoAdFound");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onNoAdFound");
                 mediationListener.onFailedToReceiveAd();
             }
 
             @Override
             public void onFocusChange(JtAdView jtAdView, int i, boolean b) {
-                if (Consts.DEBUG) Log.d(TAG, "#onFocusChange");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onFocusChange");
             }
 
             @Override
             public void onNewAd(JtAdView jtAdView, int i, String s) {
                 // Hand back the wrapped view so we get the correct sizing and gravity
-                if (Consts.DEBUG) Log.d(TAG, "#onNewAd height=" + jtAdView.getHeight() + " width=" + jtAdView.getWidth() + " layoutParams#width=" + jtAdView.getLayoutParams().width + " layoutParams#height=" + jtAdView.getLayoutParams().height);
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onNewAd height=" + jtAdView.getHeight() + " width=" + jtAdView.getWidth() + " layoutParams#width=" + jtAdView.getLayoutParams().width + " layoutParams#height=" + jtAdView.getLayoutParams().height);
                 mediationListener.onReceivedAd(wrappedAdView);
             }
 
             @Override
             public void onAdError(JtAdView jtAdView, int i1, int i2) {
-                if (Consts.DEBUG) Log.d(TAG, "#onAdError i1=" + i1 + " i2=" + i2 + " jtAdView=" + jtAdView);
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onAdError i1=" + i1 + " i2=" + i2 + " jtAdView=" + jtAdView);
             }
 
             @Override
             public void onInterstitialDismissed(JtAdView jtAdView, int i) {
-                if (Consts.DEBUG) Log.d(TAG, "#onInterstitualDismissed");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onInterstitualDismissed");
                 mediationListener.onDismissScreen();
             }
 
             @Override
             public void onBeginAdInteraction(JtAdView jtAdView, int i) {
-                if (Consts.DEBUG) Log.d(TAG, "#onBeingAdInteraction");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onBeingAdInteraction");
                 mediationListener.onPresentScreen();
             }
 
             @Override
             public void onEndAdInteraction(JtAdView jtAdView, int i) {
-                if (Consts.DEBUG) Log.d(TAG, "#onEndAdInteraction");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onEndAdInteraction");
                 mediationListener.onDismissScreen();
             }
 
             @Override
             public void onHide(JtAdView jtAdView, int i) {
-                if (Consts.DEBUG) Log.d(TAG, "#onHide");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onHide");
             }
 
             @Override
             public void onExpand(JtAdView jtAdView, int i) {
-                if (Consts.DEBUG) Log.d(TAG, "#onExpand");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onExpand");
             }
 
             @Override
             public void onContract(JtAdView jtAdView, int i) {
-                if (Consts.DEBUG) Log.d(TAG, "#onContract");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onContract");
             }
 
             @Override
             public void onBannerClicked(JtAdView jtAdView, int i) {
-                if (Consts.DEBUG) Log.d(TAG, "#onBannerClicked");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onBannerClicked");
                 mediationListener.onClick();
             }
 
             @Override
             public void onLaunchActivity(JtAdView jtAdView, int i) {
-                if (Consts.DEBUG) Log.d(TAG, "#onLaunchActivity");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onLaunchActivity");
                 mediationListener.onPresentScreen();
             }
 
             @Override
             public void onReturnFromActivity(JtAdView jtAdView, int i) {
-                if (Consts.DEBUG) Log.d(TAG, "#onReturnFromActivity");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onReturnFromActivity");
                 mediationListener.onDismissScreen();
             }
         });
 
-        if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd before callForAd");
+        if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestBannerAd before callForAd");
         adView.refreshAd();
-        if (Consts.DEBUG) Log.d(TAG, "#requestBannerAd after callForAd");
+        if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestBannerAd after callForAd");
     }
 
     @Override
     public void destroy() {
-        if (Consts.DEBUG) Log.d(TAG, "#destroy");
+        if (CustomEventConsts.DEBUG) Log.d(TAG, "#destroy");
     }
 
     private JumptapId parseJumptapId(String unparsedId) {
         final JumptapId jumptapId = new JumptapId();
 
-        if (Consts.DEBUG) Log.d(TAG, "#parseJumptapId unparsedId='" + unparsedId + "'");
+        if (CustomEventConsts.DEBUG) Log.d(TAG, "#parseJumptapId unparsedId='" + unparsedId + "'");
 
         // publisherId
         int stopToken;
         stopToken = unparsedId.indexOf("/");
         if (stopToken == -1) {
             jumptapId.publisherId = unparsedId;
-            if (Consts.DEBUG) Log.d(TAG, "#parseJumptapId stopToken=" + stopToken + " publisherId=" + jumptapId.publisherId);
+            if (CustomEventConsts.DEBUG) Log.d(TAG, "#parseJumptapId stopToken=" + stopToken + " publisherId=" + jumptapId.publisherId);
         } else {
             jumptapId.publisherId = unparsedId.substring(0, stopToken);
-            if (Consts.DEBUG) Log.d(TAG, "#parseJumptapId stopToken=" + stopToken + " publisherId=" + jumptapId.publisherId);
+            if (CustomEventConsts.DEBUG) Log.d(TAG, "#parseJumptapId stopToken=" + stopToken + " publisherId=" + jumptapId.publisherId);
             unparsedId = unparsedId.substring(stopToken + 1);
 
             // SiteId
             stopToken = unparsedId.indexOf("/");
             if (stopToken == -1) {
                 jumptapId.siteId = unparsedId;
-                if (Consts.DEBUG) Log.d(TAG, "#parseJumptapId stopToken=" + stopToken + " siteId=" + jumptapId.siteId);
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#parseJumptapId stopToken=" + stopToken + " siteId=" + jumptapId.siteId);
             } else {
                 jumptapId.siteId = unparsedId.substring(0, stopToken);
-                if (Consts.DEBUG) Log.d(TAG, "#parseJumptapId stopToken=" + stopToken + " siteId=" + jumptapId.siteId);
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#parseJumptapId stopToken=" + stopToken + " siteId=" + jumptapId.siteId);
                 unparsedId = unparsedId.substring(stopToken + 1);
                 jumptapId.spotId = unparsedId;
-                if (Consts.DEBUG) Log.d(TAG, "#parseJumptapId spotId=" + jumptapId.spotId);
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#parseJumptapId spotId=" + jumptapId.spotId);
             }
         }
 

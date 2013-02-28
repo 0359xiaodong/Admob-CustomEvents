@@ -3,7 +3,7 @@ package au.com.xandar.admob.common;
 /**
  * Constants used within this component.
  */
-public class Consts {
+public class CustomEventConsts {
 
     public static boolean DEBUG = false;
 

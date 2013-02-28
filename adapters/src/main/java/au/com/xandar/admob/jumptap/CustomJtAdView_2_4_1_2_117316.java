@@ -6,7 +6,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.WindowManager;
-import au.com.xandar.admob.common.Consts;
+import au.com.xandar.admob.common.CustomEventConsts;
 import com.jumptap.adtag.JtAdView;
 import com.jumptap.adtag.JtAdWidgetSettings;
 import com.jumptap.adtag.utils.JtException;
@@ -44,15 +44,15 @@ final class CustomJtAdView_2_4_1_2_117316 extends JtAdView {
         if (super.context instanceof Activity) {
             final Activity activity = (Activity) super.context;
             if (activity.isFinishing()) {
-                if (Consts.DEBUG) Log.d(TAG, "#handleClicks activity#isFinishing - not handling click");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#handleClicks activity#isFinishing - not handling click");
                 return;
             } else if (Build.VERSION.SDK_INT >= 17 && activity.isDestroyed()) { // Activity#isDestroyed was only added in SDK#17 so need to check version first
-                if (Consts.DEBUG) Log.d(TAG, "#handleClicks activity#isDestroyed - not handling click");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#handleClicks activity#isDestroyed - not handling click");
                 return;
             }
         }
 
-        if (Consts.DEBUG) Log.d(TAG, "#handleClicks - Context : " + context);
+        if (CustomEventConsts.DEBUG) Log.d(TAG, "#handleClicks - Context : " + context);
         try {
             super.handleClicks(url);
         } catch (WindowManager.BadTokenException e) {

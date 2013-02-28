@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.database.sqlite.SQLiteDiskIOException;
 import android.os.Build;
 import android.util.Log;
-import au.com.xandar.admob.common.Consts;
+import au.com.xandar.admob.common.CustomEventConsts;
 import com.google.ads.mediation.MediationAdRequest;
 import com.google.ads.mediation.customevent.CustomEventInterstitial;
 import com.google.ads.mediation.customevent.CustomEventInterstitialListener;
@@ -27,7 +27,7 @@ public final class GreystripeInterstitialAd implements CustomEventInterstitial {
                                       String label, String greystripeApplicationId,
                                       MediationAdRequest mediationAdRequest, Object customEventExtra) {
 
-        if (Consts.DEBUG) Log.d(TAG, "#requestInterstitialAd greystripeApplicationId=" + greystripeApplicationId);
+        if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestInterstitialAd greystripeApplicationId=" + greystripeApplicationId);
 
         // If less than the min API (7?) for Greystripe then bail immediately.
         final boolean deviceIsEclairOrGreater = (Build.VERSION.SDK_INT >= 7);
@@ -42,7 +42,7 @@ public final class GreystripeInterstitialAd implements CustomEventInterstitial {
 
             // This catch was added because Greystripe-2.1 started occasionally throwing these errors for Gingerbread and up.
             // If configured to report the error then rethrow as an IllegalStateException. Default to rethrow.
-            if (Consts.THROW_GREYSTRIPE_INTERSTITIAL_CREATION_EXCEPTION) {
+            if (CustomEventConsts.THROW_GREYSTRIPE_INTERSTITIAL_CREATION_EXCEPTION) {
                 throw new IllegalStateException("Could not construct GreystripeAd", e);
             }
 
@@ -55,53 +55,53 @@ public final class GreystripeInterstitialAd implements CustomEventInterstitial {
         final GSAdListener fullScreenAdListener = new GSAdListener() {
             @Override
             public void onFailedToFetchAd(GSAd gsAd, GSAdErrorCode errorCode) {
-                if (Consts.DEBUG) Log.d(TAG, "#onFailedToReceiveAd errorCode=" + errorCode);
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onFailedToReceiveAd errorCode=" + errorCode);
                 mediationListener.onFailedToReceiveAd();
             }
 
             @Override
             public void onFetchedAd(GSAd gsAd) {
-                if (Consts.DEBUG) Log.d(TAG, "#onFetchedAd");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onFetchedAd");
                 mediationListener.onReceivedAd();
             }
 
             @Override
             public void onAdClickthrough(GSAd gsAd) {
-                if (Consts.DEBUG) Log.d(TAG, "#onAdClickthrough");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onAdClickthrough");
             }
 
             @Override
             public void onAdDismissal(GSAd gsAd) {
-                if (Consts.DEBUG) Log.d(TAG, "#onAdDismissal");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onAdDismissal");
                 mediationListener.onDismissScreen();
             }
 
             @Override
             public void onAdExpansion(GSAd gsAd) {
-                if (Consts.DEBUG) Log.d(TAG, "#onAdExpansion");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onAdExpansion");
                 mediationListener.onPresentScreen();
             }
 
             @Override
             public void onAdCollapse(GSAd gsAd) {
-                if (Consts.DEBUG) Log.d(TAG, "#onAdCollapse");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onAdCollapse");
             }
         };
         ad.addListener(fullScreenAdListener);
 
-        if (Consts.DEBUG) Log.d(TAG, "#requestIterstitialAd - fetch start");
+        if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestIterstitialAd - fetch start");
         ad.fetch();
-        if (Consts.DEBUG) Log.d(TAG, "#requestInterstitialAd - fetch finish");
+        if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestInterstitialAd - fetch finish");
     }
 
     @Override
     public void showInterstitial() {
         if (ad == null) {
-            if (Consts.DEBUG) Log.d(TAG, "#showInterstitialAd - no ad was created - bailing");
+            if (CustomEventConsts.DEBUG) Log.d(TAG, "#showInterstitialAd - no ad was created - bailing");
         } else if (!ad.isAdReady()) {
-            if (Consts.DEBUG) Log.d(TAG, "#showInterstitialAd - no ad is ready - bailing");
+            if (CustomEventConsts.DEBUG) Log.d(TAG, "#showInterstitialAd - no ad is ready - bailing");
         } else {
-            if (Consts.DEBUG) Log.d(TAG, "#showInterstitialAd - displaying ad");
+            if (CustomEventConsts.DEBUG) Log.d(TAG, "#showInterstitialAd - displaying ad");
             ad.display();
         }
     }
