@@ -32,6 +32,7 @@ public final class GreystripeInterstitialAd implements CustomEventInterstitial {
         // If less than the min API (7?) for Greystripe then bail immediately.
         final boolean deviceIsEclairOrGreater = (Build.VERSION.SDK_INT >= 7);
         if (!deviceIsEclairOrGreater) {
+            if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestInterstitialAd device is pre-Eclair - bailing");
             mediationListener.onFailedToReceiveAd();
             return;
         }
@@ -46,8 +47,8 @@ public final class GreystripeInterstitialAd implements CustomEventInterstitial {
                 throw new IllegalStateException("Could not construct GreystripeAd", e);
             }
 
-            mediationListener.onFailedToReceiveAd();
             Log.e(TAG, "#requestInterstitialAd Could not construct GreystripeAd - bailing now", e);
+            mediationListener.onFailedToReceiveAd();
 
             return;
         }
@@ -55,41 +56,42 @@ public final class GreystripeInterstitialAd implements CustomEventInterstitial {
         final GSAdListener fullScreenAdListener = new GSAdListener() {
             @Override
             public void onFailedToFetchAd(GSAd gsAd, GSAdErrorCode errorCode) {
-                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onFailedToReceiveAd errorCode=" + errorCode);
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestInterstitialAd onFailedToReceiveAd errorCode=" + errorCode);
                 mediationListener.onFailedToReceiveAd();
             }
 
             @Override
             public void onFetchedAd(GSAd gsAd) {
-                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onFetchedAd");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestInterstitialAd onFetchedAd");
                 mediationListener.onReceivedAd();
             }
 
             @Override
             public void onAdClickthrough(GSAd gsAd) {
-                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onAdClickthrough");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestInterstitialAd onAdClickthrough");
+                mediationListener.onLeaveApplication();
             }
 
             @Override
             public void onAdDismissal(GSAd gsAd) {
-                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onAdDismissal");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestInterstitialAd onAdDismissal");
                 mediationListener.onDismissScreen();
             }
 
             @Override
             public void onAdExpansion(GSAd gsAd) {
-                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onAdExpansion");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestInterstitialAd onAdExpansion");
                 mediationListener.onPresentScreen();
             }
 
             @Override
             public void onAdCollapse(GSAd gsAd) {
-                if (CustomEventConsts.DEBUG) Log.d(TAG, "#onAdCollapse");
+                if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestInterstitialAd onAdCollapse");
             }
         };
         ad.addListener(fullScreenAdListener);
 
-        if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestIterstitialAd - fetch start");
+        if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestInterstitialAd - fetch start");
         ad.fetch();
         if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestInterstitialAd - fetch finish");
     }
