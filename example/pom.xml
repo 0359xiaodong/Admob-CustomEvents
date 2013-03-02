@@ -32,31 +32,19 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <android.sdk.version>17</android.sdk.version>
-        <android.library.dependency.version>4.2</android.library.dependency.version>
-
+<!--
         <filtered.manifest.path>${basedir}/target/filtered-manifest</filtered.manifest.path>
         <filtered.resource.path>${basedir}/target</filtered.resource.path>
+-->
     </properties>
 
     <dependencies>
-<!--
-    Include the dep so that proguard can see the library as it ignores bootclasspath.
 
-    Actually inclusion during compilation is managed using android.library.sdk.version and the bootclasspath of the compiler plugin.
-    This is done because otherwise I leave myself open to VerifyErrors at runtime as I may have compiled against classes contained in JDK6 that are not in Android 1.6
--->
-        <dependency>
-            <groupId>com.google.android</groupId>
-            <artifactId>android</artifactId>
-            <version>${android.library.dependency.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Admob - our mediator (also includes the Admob network classes) -->
+        <!-- Admob - our mediator -->
         <dependency>
             <groupId>com.google.ads</groupId>
             <artifactId>admob</artifactId>
-            <version>6.3.0-rc0</version>
+            <version>6.3.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
