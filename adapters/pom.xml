@@ -43,14 +43,6 @@
             <scope>compile</scope>
         </dependency>
 
-	<!-- MillennialMedia -->        
-        <dependency>
-            <groupId>com.millennialmedia</groupId>
-            <artifactId>android-sdk</artifactId>
-            <version>4.6.0</version>
-            <scope>compile</scope>
-        </dependency>
-
         <!-- JumpTap -->
         <dependency>
             <groupId>com.jumptap</groupId>
