@@ -70,6 +70,8 @@ public final class JumptapBannerAd implements CustomEventBanner {
             throw new IllegalStateException("Could not create JumptapAdView", e);
         }
 
+        // TODO Supply optional params from customEventExtra
+
         // Apply appropriate sizing to the ad.
         if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestBannerAd AdSize=" + adSize + " width=" + adSize.getWidth() + "dp height=" + adSize.getHeight() + "dp");
         if (CustomEventConsts.DEBUG) Log.d(TAG, "#requestBannerAd width=" + adSize.getWidthInPixels(activity) + "px height=" + adSize.getHeightInPixels(activity) + "px");
