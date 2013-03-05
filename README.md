@@ -5,9 +5,7 @@ CustomEvents for other networks when using Admob mediation.
 
 NB you'll need to create your own au.com.xandar.admob.MyAdmobConfig class
 
-/**
- * Not to be committed as everyone needs to provide their own and this project has been made public.
- */
+// Do not commit this class as everyone needs to provide their own and this project has been made public.
 public class MyAdmobConfig {
 
     // My CustomEvents-Test mediation Id
