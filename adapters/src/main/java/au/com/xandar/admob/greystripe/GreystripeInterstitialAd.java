@@ -53,6 +53,8 @@ public final class GreystripeInterstitialAd implements CustomEventInterstitial {
             return;
         }
 
+        // TODO Supply optional params from customEventExtra
+
         final GSAdListener fullScreenAdListener = new GSAdListener() {
             @Override
             public void onFailedToFetchAd(GSAd gsAd, GSAdErrorCode errorCode) {

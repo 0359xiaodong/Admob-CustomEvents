@@ -3,9 +3,15 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>au.com.xandar.admob.customevents</groupId>
+        <artifactId>custom-events</artifactId>
+        <version>1.2-SNAPSHOT</version>
+    </parent>
+
     <groupId>au.com.xandar.admob.customevents</groupId>
     <artifactId>adapters</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Admob Custom Event Adapters</name>
@@ -39,23 +45,15 @@
         <dependency>
             <groupId>com.google.ads</groupId>
             <artifactId>admob</artifactId>
-            <version>6.3.0</version>
+            <version>6.4.1</version>
             <scope>compile</scope>
         </dependency>
 
-	<!-- MillennialMedia -->        
+        <!-- MillennialMedia -->
         <dependency>
             <groupId>com.millennialmedia</groupId>
             <artifactId>android-sdk</artifactId>
             <version>4.6.0</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- JumpTap -->
-        <dependency>
-            <groupId>com.jumptap</groupId>
-            <artifactId>android-sdk</artifactId>
-            <version>2.4.1.2-117316</version>
             <scope>compile</scope>
         </dependency>
 
@@ -70,66 +68,6 @@
     </dependencies>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.7</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.6</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.3.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.3.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-jarsigner-plugin</artifactId>
-                    <version>1.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.7</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.5</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>2.1.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.9</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>buildnumber-maven-plugin</artifactId>
-                    <version>1.0</version>
-                </plugin>
-                <plugin>
-                    <groupId>com.jayway.maven.plugins.android.generation2</groupId>
-                    <artifactId>android-maven-plugin</artifactId>
-                    <version>3.5.0</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>wagon-maven-plugin</artifactId>
-                    <version>1.0-beta-3</version>
-                </plugin>
-	        </plugins>
-        </pluginManagement>
-
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
